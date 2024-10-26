@@ -43,10 +43,16 @@ class HomeController extends Controller
 
         $existingBooking = Booking::where('car_id', $request->input('car_id'))
             ->where(function ($query) use ($request) {
-                $query->whereBetween('booking_start_date', [$request->input('booking_start_date'), $request->input('booking_end_date')])
+                // Если старт нового бронирования найден внутри существующего
+                $query
+                    ->whereBetween('booking_start_date', [$request->input('booking_start_date'), $request->input('booking_end_date')])
+                    // Если конец нового бронирования найден внутри существующего
                     ->orWhereBetween('booking_end_date', [$request->input('booking_start_date'), $request->input('booking_end_date')])
                     ->orWhere(function ($query) use ($request) {
-                        $query->where('booking_start_date', '<=', $request->input('booking_start_date'))
+                        $query
+                            // Если существующее бронирование начинается до или в тот же момент что и новое
+                            ->where('booking_start_date', '<=', $request->input('booking_start_date'))
+                            // Если существующее бронирование заканчивается после или в тот же момент что и новое
                             ->where('booking_end_date', '>=', $request->input('booking_end_date'));
                     });
             })
