@@ -16,7 +16,9 @@
                     <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Пользователь</th>
+                        <th>ФИО</th>
+                        <th>Email</th>
+                        <th>Телефон</th>
                         <th>Машина</th>
                         <th>Дата начала</th>
                         <th>Дата окончания</th>
@@ -29,6 +31,8 @@
                         <tr>
                             <td>{{ $booking->id }}</td>
                             <td>{{ $booking->user->name }}</td>
+                            <td>{{ $booking->user->email }}</td>
+                            <td>{{ $booking->user->phone }}</td>
                             <td>{{ $booking->car->name }}</td>
                             <td>{{ $booking->booking_start_date }}</td>
                             <td>{{ $booking->booking_end_date }}</td>
@@ -40,8 +44,6 @@
                                         <option value="Подтверждено">Подтверждено</option>
                                         <option value="Отменено">Отменено</option>
                                     </select>
-                                @else
-                                    {{ $booking->status }}
                                 @endif
                             </td>
                         </tr>
