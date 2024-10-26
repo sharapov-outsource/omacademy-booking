@@ -15,6 +15,7 @@ return new class extends Migration {
         Schema::table('users', function (Blueprint $table) {
             $table->string('phone')->unique()->after('email');
             $table->string('driver_license')->unique()->after('phone');
+            $table->boolean('is_admin')->default(false);
         });
     }
 
@@ -28,6 +29,7 @@ return new class extends Migration {
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('phone');
             $table->dropColumn('driver_license');
+            $table->dropColumn('is_admin');
         });
     }
 };
