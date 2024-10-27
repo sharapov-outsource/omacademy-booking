@@ -41,7 +41,7 @@ class HomeController extends Controller
             'booking_end_date' => 'required|date|after:booking_start_date',
         ]);
 
-        $existingBooking = Booking::where('car_id', $request->input('car_id'))
+        $existingBooking = Booking::where('car_id', $request->input('car_id'))->whereIn('status', ['Новое', 'Подтверждено'])
             ->where(function ($query) use ($request) {
                 // Если старт нового бронирования найден внутри существующего
                 $query
